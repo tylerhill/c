@@ -1,0 +1,13 @@
+﻿Build started 3/4/2015 5:46:01 PM.
+     1>Project "C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\cis27Spring2015TylerHillLab3Ex1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\CIS6\install\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\cis27Spring2015TylerHillLab3Ex1.c
+         cis27Spring2015TylerHillLab3Ex1.c
+       Link:
+         C:\CIS6\install\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\Debug\cis27Spring2015TylerHillLab3Ex1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\Debug\cis27Spring2015TylerHillLab3Ex1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\Debug\cis27Spring2015TylerHillLab3Ex1.lib" /MACHINE:X86 Debug\cis27Spring2015TylerHillLab3Ex1.obj
+         cis27Spring2015TylerHillLab3Ex1.vcxproj -> C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\Debug\cis27Spring2015TylerHillLab3Ex1.exe
+     1>Done Building Project "C:\CIS27\lab3\cis27Spring2015TylerHillLab3Ex1\cis27Spring2015TylerHillLab3Ex1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.29

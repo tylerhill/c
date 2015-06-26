@@ -1,0 +1,176 @@
+/*
+* Program Name: cis27Spring2015TylerHillLab3Ex1.c
+* Discussion:	struct Fraction
+* Written by:   Tyler Hill
+* Date:         2015/03/05
+*/
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Fraction {
+	int num;
+	int denom;
+};
+
+typedef struct Fraction frac;
+typedef struct Fraction* frPtr;
+
+void menu(void);
+frPtr createFraction(void);
+frPtr reduceFraction(frPtr);
+frPtr addFraction(frPtr, frPtr);
+frPtr subtractFraction(frPtr, frPtr);
+frPtr multiplyFraction(frPtr, frPtr);
+frPtr divideFraction(frPtr, frPtr);
+void displayFraction(frPtr);
+int gcdRecur(int,int);
+
+
+int main() {
+	printf("CIS 27 - Data Structures");
+	printf("\nLaney College");
+	printf("\nTyler Hill");
+	printf("\n");
+	printf("\nAssignment Information -- ");
+	printf("\n  Assignment Number:  Lab 03,");
+	printf("\n                      Coding Assignment -- Exercise #1");
+	printf("\n  Written by:         Tyler Hill");
+	printf("\n  Submitted Date:     2015/03/05");
+	printf("\n");
+	menu();
+	return 0;
+}
+
+
+void menu() {
+	int option;
+	int frOption;
+	frPtr lOp = 0;
+	frPtr rOp = 0;
+	
+	do {
+		printf("\nMENU : Fraction -- Tyler Hill"\
+			"\n1. Creating/Updating"\
+			"\n2. Adding"\
+			"\n3. Subtracting"\
+			"\n4. Multiplying"\
+			"\n5. Dividing"\
+			"\n6. Displaying"\
+			"\n7. Quit");
+		printf("\nEnter the option (1 or 2): ");
+		scanf("%d", &option);
+
+		switch (option) {
+		case 1:
+				do {
+					printf("\nMENU : Creating/Updating"\
+						"\n1. Left Operand"\
+						"\n2. Right Operand"\
+						"\n3. Both Operands"\
+						"\n4. Displaying Current Operands"\
+						"\n5. Return");
+					printf("\nEnter the option: ");
+					scanf("%d", &frOption);
+					switch(frOption) {
+						case 1:
+							printf("\nLeft Operand: ");
+							lOp = reduceFraction(createFraction());
+							break;
+						case 2:
+							printf("\nRight Operand: ");
+							rOp = reduceFraction(createFraction());
+							break;
+						case 3:
+							printf("\nLeft Operand: ");
+							lOp = reduceFraction(createFraction());
+							printf("\nRight Operand: ");
+							rOp = reduceFraction(createFraction());
+							break;
+						case 4:
+							printf("");
+							printf("\nLeft Operand:");
+							displayFraction(lOp);
+							printf("");
+							printf("\nRight Operand:");
+							displayFraction(rOp);
+							break;
+						case 5:
+							break;
+					}
+				} while (frOption != 5);
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		default:
+			printf("\nYou should not be in this class!\n");
+		}
+	} while (option != 7);
+}
+
+
+frPtr createFraction(void) {
+	int num;
+	int denom = 0;
+	frPtr fr;
+	printf("\nCreating Fraction");
+	printf("\nWhat is the numerator: ");
+	scanf("%d",&num);
+	do {
+	printf("\nWhat is the denominator?");
+	printf("\nMUST BE NON-ZERO INTEGER: ");
+	scanf("%d",&denom);
+	} while (denom == 0);
+	if (denom < 0) {
+		denom = -denom;
+		num = -num;
+	}
+	fr = (frPtr) malloc(sizeof(frac));
+	fr->num = num;
+	fr->denom = denom;
+	return fr;
+}
+
+void displayFraction(frPtr fr) {
+	if(fr != 0) {
+		printf("\n\tAddress/Location: %d",fr);
+		printf("\n\tNumerator: %d",fr->num);
+		printf("\n\tDenominator: %d\n",fr->denom);
+	} else {
+		printf("\n\tAddress/Location: NULL\n");
+	}
+}
+
+int gcdRecur(int arg1, int arg2) {
+	if(arg1 % arg2 == 0) {
+		return arg2;
+	} else {
+		return gcdRecur(arg2, arg1 % arg2);
+	}
+}
+
+frPtr reduceFraction(frPtr fr) {
+	int gcd = gcdRecur(fr->num, fr->denom);
+	if (gcd < 0) {
+		gcd = -gcd;
+	}
+	if (fr->denom < 0) {
+		fr->denom = -fr->denom;
+		fr->num = -fr->num;
+	}
+	fr->num = (fr->num)/gcd;
+	fr->denom = (fr->denom)/gcd;
+	return fr;
+}
+

@@ -1,0 +1,236 @@
+/*
+* Program Name: cis27Spring2015TylerHillLab3Ex1.c
+* Discussion:	struct Fraction
+* Written by:   Tyler Hill
+* Date:         2015/03/05
+*/
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Fraction {
+	int num;
+	int denom;
+};
+
+typedef struct Fraction frac;
+typedef struct Fraction* frPtr;
+
+void menu(void);
+frPtr createFractionTylerHill(void);
+frPtr reduceFractionTylerHill(frPtr);
+frPtr addFractionTylerHill(frPtr, frPtr);
+frPtr subtractFractionTylerHill(frPtr, frPtr);
+frPtr multiplyFractionTylerHill(frPtr, frPtr);
+frPtr divideFractionTylerHill(frPtr, frPtr);
+void displayFractionTylerHill(frPtr);
+int gcdRecur(int,int);
+
+
+int main() {
+	printf("CIS 27 - Data Structures");
+	printf("\nLaney College");
+	printf("\nTyler Hill");
+	printf("\n");
+	printf("\nAssignment Information -- ");
+	printf("\n  Assignment Number:  Lab 03,");
+	printf("\n                      Coding Assignment -- Exercise #1");
+	printf("\n  Written by:         Tyler Hill");
+	printf("\n  Submitted Date:     2015/03/05");
+	printf("\n");
+	menu();
+	return 0;
+}
+
+
+void menu() {
+	int option;
+	int frOption;
+	frPtr lOp = 0;
+	frPtr rOp = 0;
+	
+	do {
+		printf("\n");
+		printf("\nMENU : Fraction -- Tyler Hill"\
+			"\n1. Creating/Updating"\
+			"\n2. Adding"\
+			"\n3. Subtracting"\
+			"\n4. Multiplying"\
+			"\n5. Dividing"\
+			"\n6. Displaying"\
+			"\n7. Quit");
+		printf("\nEnter the option: ");
+		scanf("%d", &option);
+
+		switch (option) {
+		case 1:
+				do {
+					printf("\nMENU : Creating/Updating"\
+						"\n1. Left Operand"\
+						"\n2. Right Operand"\
+						"\n3. Both Operands"\
+						"\n4. Displaying Current Operands"\
+						"\n5. Return");
+					printf("\nEnter the option: ");
+					scanf("%d", &frOption);
+					switch(frOption) {
+						case 1:
+							printf("\nLeft Operand: ");
+							lOp = reduceFractionTylerHill(createFractionTylerHill());
+							break;
+						case 2:
+							printf("\nRight Operand: ");
+							rOp = reduceFractionTylerHill(createFractionTylerHill());
+							break;
+						case 3:
+							printf("\nLeft Operand: ");
+							lOp = reduceFractionTylerHill(createFractionTylerHill());
+							printf("\nRight Operand: ");
+							rOp = reduceFractionTylerHill(createFractionTylerHill());
+							break;
+						case 4:
+							printf("\n");
+							printf("\nLeft Operand:");
+							displayFractionTylerHill(lOp);
+							printf("\n");
+							printf("\nRight Operand:");
+							displayFractionTylerHill(rOp);
+							break;
+						case 5:
+							break;
+					}
+				} while (frOption != 5);
+			break;
+		case 2:
+			if(lOp != 0 && rOp != 0) {	
+				displayFractionTylerHill(addFractionTylerHill(lOp,rOp));
+			} else {
+				printf("\nNot Allowed Yet - No Proper Data!");
+			}
+			break;
+		case 3:
+			if(lOp != 0 && rOp != 0) {	
+				displayFractionTylerHill(subtractFractionTylerHill(lOp,rOp));
+			} else {
+				printf("\nNot Allowed Yet - No Proper Data!");
+			}
+			break;
+		case 4:
+			if(lOp != 0 && rOp != 0) {	
+				displayFractionTylerHill(multiplyFractionTylerHill(lOp,rOp));
+			} else {
+				printf("\nNot Allowed Yet - No Proper Data!");
+			}
+			break;
+		case 5:
+			if(lOp != 0 && rOp != 0) {	
+				if(rOp->num != 0) {
+					displayFractionTylerHill(divideFractionTylerHill(lOp,rOp));
+				} else {
+					printf("\nCannot divide by ZERO");
+				}
+			} else {
+				printf("\nNot Allowed Yet - No Proper Data!");
+			}
+			break;
+		case 6:
+			printf("\n");
+			printf("\nLeft Operand:");
+			displayFractionTylerHill(lOp);
+			printf("\n");
+			printf("\nRight Operand:");
+			displayFractionTylerHill(rOp);
+			break;
+		case 7:
+			break;
+		default:
+			printf("\nYou should not be in this class!\n");
+		}
+	} while (option != 7);
+}
+
+
+frPtr createFractionTylerHill(void) {
+	int num;
+	int denom = 0;
+	frPtr fr;
+	printf("\nCreating Fraction");
+	printf("\nWhat is the numerator: ");
+	scanf("%d",&num);
+	do {
+	printf("\nWhat is the denominator?");
+	printf("\nMUST BE NON-ZERO INTEGER: ");
+	scanf("%d",&denom);
+	} while (denom == 0);
+	if (denom < 0) {
+		denom = -denom;
+		num = -num;
+	}
+	fr = (frPtr) malloc(sizeof(frac));
+	fr->num = num;
+	fr->denom = denom;
+	return fr;
+}
+
+void displayFractionTylerHill(frPtr fr) {
+	if(fr != 0) {
+		printf("\n\tAddress/Location: %d",fr);
+		printf("\n\tNumerator: %d",fr->num);
+		printf("\n\tDenominator: %d\n",fr->denom);
+	} else {
+		printf("\n\tAddress/Location: NULL\n");
+	}
+}
+
+int gcdRecur(int arg1, int arg2) {
+	if(arg1 % arg2 == 0) {
+		return arg2;
+	} else {
+		return gcdRecur(arg2, arg1 % arg2);
+	}
+}
+
+frPtr reduceFractionTylerHill(frPtr fr) {
+	int gcd = gcdRecur(fr->num, fr->denom);
+	if (gcd < 0) {
+		gcd = -gcd;
+	}
+	if (fr->denom < 0) {
+		fr->denom = -fr->denom;
+		fr->num = -fr->num;
+	}
+	fr->num = (fr->num)/gcd;
+	fr->denom = (fr->denom)/gcd;
+	return fr;
+}
+
+frPtr addFractionTylerHill(frPtr fr1, frPtr fr2) {
+	frPtr frResult;
+	frResult = (frPtr) malloc(sizeof(frac));
+	frResult->num = ((fr1->num) * (fr2->denom) + (fr1->denom) * (fr2->num));
+	frResult->denom = ((fr1->denom) * (fr2->denom));
+	return reduceFractionTylerHill(frResult);
+}
+frPtr subtractFractionTylerHill(frPtr fr1, frPtr fr2) {
+	frPtr frResult;
+	frResult = (frPtr) malloc(sizeof(frac));
+	frResult->num = ((fr1->num) * (fr2->denom) - (fr1->denom) * (fr2->num));
+	frResult->denom = ((fr1->denom) * (fr2->denom));
+	return reduceFractionTylerHill(frResult);
+}
+frPtr multiplyFractionTylerHill(frPtr fr1, frPtr fr2) {
+	frPtr frResult;
+	frResult = (frPtr) malloc(sizeof(frac));
+	frResult->num = ((fr1->num) * (fr2->num));
+	frResult->denom = ((fr1->denom) * (fr2->denom));
+	return reduceFractionTylerHill(frResult);
+}
+frPtr divideFractionTylerHill(frPtr fr1, frPtr fr2) {
+	frPtr frResult;
+	frResult = (frPtr) malloc(sizeof(frac));
+	frResult->num = ((fr1->num) * (fr2->denom));
+	frResult->denom = ((fr1->denom) * (fr2->num));
+	return reduceFractionTylerHill(frResult);
+}
+
